@@ -126,4 +126,14 @@ public class StudentServiceImpleementation  implements StudentService
 		
 	}
 
+
+
+	@Override
+	public StudentDto findStudentByEmail(String email) {
+		 
+		  List<StudentEntity> studentEmail = studentRepository.findByStudentEmail(email);
+		
+		   return studentEntityToStudentDto(studentEmail.get(0));
+	}
+
 }

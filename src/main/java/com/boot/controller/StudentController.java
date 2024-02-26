@@ -12,30 +12,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.boot.dto.StudentDto;
 import com.boot.exception.ApiResponse;
 import com.boot.service.StudentService;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
-@RestController
+
+
+
 @RequestMapping("/student")
-@Tag(name = "Student Controller", description = "To perform operation on student")
+@RestController
+
 public class StudentController 
 {
 	  @Autowired
 	  private StudentService studentService;
 	
 	
-	   // Add new student record
-	  @Operation(
-			  summary = "Post operation on students",
-			  description = "It is used to save student object in database")
+
 	  @PostMapping("/")  // End points
-	  public  ResponseEntity<StudentDto>   saveStudent( @RequestBody  StudentDto studentDto)
+	  public  ResponseEntity<StudentDto>   saveStudent(@Valid @RequestBody  StudentDto studentDto)
 	  {
 		         StudentDto savedStudent = studentService.saveStudent(studentDto);
 		         return new ResponseEntity<StudentDto>(savedStudent,HttpStatus.CREATED);
@@ -78,6 +78,13 @@ public class StudentController
 		         return new ResponseEntity<StudentDto>(updatedStudent,HttpStatus.OK);
 	  }
 	  
+	  @GetMapping("/email")
+	  public ResponseEntity<StudentDto>   getStudentByEmail(@RequestParam("msg") String msg)
+	  {
+		      StudentDto studentByEmail = studentService.findStudentByEmail(msg);
+		      return new ResponseEntity<StudentDto>(studentByEmail,HttpStatus.OK);
+		      
+	  }
 	  
 	
 }

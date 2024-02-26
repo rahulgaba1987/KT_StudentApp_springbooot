@@ -20,6 +20,8 @@ public interface StudentService
      //Update StudentID
      public StudentDto  updateStudentById(StudentDto student,int studentId);
      
+     public StudentDto   findStudentByEmail(String email);
+     
      
 
 }
