@@ -115,7 +115,9 @@ public class StudentServiceImpleementation  implements StudentService
 	    	      studentDB.setStudentEmail(student.getStudentEmail());
 	    	      studentDB.setPassword(student.getPassword());
 	    	      
-	    	      return  studentEntityToStudentDto(studentDB);
+	    	      StudentEntity updated = this.studentRepository.save(studentDB);
+	    	      
+	    	      return  studentEntityToStudentDto(updated);
 	    	     
 	    }
 	    else
