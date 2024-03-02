@@ -115,7 +115,9 @@ public class StudentServiceImpleementation  implements StudentService
 	    	      studentDB.setStudentEmail(student.getStudentEmail());
 	    	      studentDB.setPassword(student.getPassword());
 	    	      
-	    	      return  studentEntityToStudentDto(studentDB);
+	    	      StudentEntity updated = this.studentRepository.save(studentDB);
+	    	      
+	    	      return  studentEntityToStudentDto(updated);
 	    	     
 	    }
 	    else
@@ -124,6 +126,16 @@ public class StudentServiceImpleementation  implements StudentService
 	    }
 		
 		
+	}
+
+
+
+	@Override
+	public StudentDto findStudentByEmail(String email) {
+		 
+		  List<StudentEntity> studentEmail = studentRepository.findByStudentEmail(email);
+		
+		   return studentEntityToStudentDto(studentEmail.get(0));
 	}
 
 }

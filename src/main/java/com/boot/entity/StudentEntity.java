@@ -1,5 +1,8 @@
 package com.boot.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.annotations.GeneratorType;
 
 import jakarta.persistence.Column;
@@ -7,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /*
@@ -33,6 +37,9 @@ public class StudentEntity
 	
 	@Column(name = "student_password",nullable = false)	
 	private String password;
+	
+	@OneToMany(mappedBy = "student")
+	List<CourseEntity> courseList = new ArrayList<>();
 
 	public int getStudentId() {
 		return studentId;
@@ -44,6 +51,14 @@ public class StudentEntity
 
 	public String getStudentName() {
 		return studentName;
+	}
+
+	public List<CourseEntity> getCourseList() {
+		return courseList;
+	}
+
+	public void setCourseList(List<CourseEntity> courseList) {
+		this.courseList = courseList;
 	}
 
 	public void setStudentName(String studentName) {
@@ -74,10 +89,12 @@ public class StudentEntity
 		this.password = password;
 	}
 
+	
 	@Override
 	public String toString() {
 		return "StudentEntity [studentId=" + studentId + ", studentName=" + studentName + ", studentEmail="
-				+ studentEmail + ", studentAge=" + studentAge + ", password=" + password + "]";
+				+ studentEmail + ", studentAge=" + studentAge + ", password=" + password + ", courseList=" + courseList
+				+ "]";
 	}
 
 	public StudentEntity() {
