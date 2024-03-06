@@ -1,0 +1,108 @@
+
+<div class="row">
+    <div class="col-md-6 offset-3">
+       <div class="container">
+           <form  [formGroup]="regForm" (ngSubmit)="update22()">
+               <div class="mb-3">
+                 <label for="exampleInputEmail1" class="form-label">Student Name</label>
+                 <input 
+                        type="text" 
+                        class="form-control" 
+                        id="studentName" 
+                        formControlName="studentName"
+                        placeholder="Enter Student Name"
+                        aria-describedby="emailHelp">
+
+                   <div *ngIf="regForm.controls['studentName'].touched && !regForm.controls['studentName'].valid">
+
+                         <span *ngIf="regForm.controls['studentName'].hasError('required')">
+                                  First Name is required  !!     
+                         </span>
+                         <span *ngIf="regForm.controls['studentName'].hasError('minlength')">
+                           First Name should be minimum 4 characters !!    
+                         </span>
+                         <span *ngIf="regForm.controls['studentName'].hasError('maxlength')">
+                           First Name should be maximum 4 characters !!    
+                         </span>
+                   </div>
+                
+               </div>
+
+               <div class="mb-3">
+                   <label for="studentEmail" class="form-label">Email address</label>
+                   <input 
+                         type="email" 
+                         class="form-control" 
+                         id="studentEmail" 
+                         formControlName="studentEmail"
+                         placeholder="Enter Student Email"
+                         aria-describedby="emailHelp">
+                         
+                         <div *ngIf="regForm.controls['studentEmail'].touched && !regForm.controls['studentEmail'].valid">
+
+                           <span *ngIf="regForm.controls['studentEmail'].hasError('required')">
+                                    Email is required  !!     
+                           </span>
+                           <span *ngIf="regForm.controls['studentEmail'].hasError('email')">
+                             Please provide vaid email !!    
+                           </span>
+                          
+                     </div>
+                   
+                 </div>
+
+                 <div class="mb-3">
+                   <label for="studentAge" class="form-label">Student Age</label>
+                   <input 
+                         type="text" 
+                         class="form-control" 
+                         id="studentAge" 
+                         formControlName="studentAge"
+                         placeholder="Enter Student Age"
+                         aria-describedby="emailHelp">
+                   
+                 </div>
+               <div class="mb-3">
+                 <label for="exampleInputPassword1" class="form-label">Password</label>
+                 <input 
+                       type="password" 
+                       class="form-control"
+                        id="password"
+                        formControlName="password"
+                        placeholder="Enter Student Password"
+                        >
+
+                        <div *ngIf="regForm.controls['password'].touched && !regForm.controls['studentName'].valid">
+
+                           <span *ngIf="regForm.controls['password'].hasError('required')">
+                                    Password is required  !!     
+                           </span>
+                           <span *ngIf="regForm.controls['password'].hasError('minlength')">
+                               Password should be minimum 4 characters !!    
+                           </span>
+                           <span *ngIf="regForm.controls['password'].hasError('maxlength')">
+                               Password should be maximum 4 characters !!    
+                           </span>
+                     </div>
+                  
+                 </div>
+               
+               <div class="mb-3 form-check">
+                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
+               </div>
+               <div class="text-center">
+                   <button type="submit" class="btn btn-success">Update</button>&nbsp;    
+                   <button type="button" class="btn btn-primary">Reset</button>
+               </div>
+               
+             </form>
+       </div>
+       
+
+    </div>
+</div>
+
+
+
+

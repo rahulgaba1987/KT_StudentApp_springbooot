@@ -20,73 +20,85 @@ import com.boot.dto.StudentDto;
 import com.boot.exception.ApiResponse;
 import com.boot.service.StudentService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 import jakarta.validation.Valid;
-
-
-
 
 @RequestMapping("/student")
 @RestController
 @CrossOrigin("*")
-public class StudentController 
-{
-	  @Autowired
-	  private StudentService studentService;
-	
-	
+public class StudentController {
 
-	  @PostMapping("/")  // End points
-	  public  ResponseEntity<StudentDto>   saveStudent(@Valid @RequestBody  StudentDto studentDto)
-	  {
-		         StudentDto savedStudent = studentService.saveStudent(studentDto);
-		         return new ResponseEntity<StudentDto>(savedStudent,HttpStatus.CREATED);
-	  }
-      // ctrl+shift+T
-	  
-	  @GetMapping("/")
-	  public ResponseEntity<List<StudentDto>>   getAllStudentsRecords()
-	  {
-		       List<StudentDto> allStudents = studentService.getAllStudents();
-		       return new ResponseEntity<List<StudentDto>>(allStudents,HttpStatus.OK);
-	  }
-	               
-	  @GetMapping("/{studentId}")
-	  public ResponseEntity<StudentDto>  getStudentById(@PathVariable("studentId") int studentId)
-	  {
-		  
-		       StudentDto studentById = studentService.getStudentById(studentId);
-		return new ResponseEntity<StudentDto>(studentById,HttpStatus.OK);
-		  
-	  }
-	  
-	  @DeleteMapping("/{studentId}")
-	  public  ResponseEntity<ApiResponse> deleteStudentById(@PathVariable("studentId") int studentId)
-	  {
-		  
-		     studentService.deleteStudentById(studentId);
-		     ApiResponse response = new ApiResponse();
-		     response.setMessage("Student record is delete successfully with Id  :"+studentId);
-		     
-		     return new ResponseEntity<ApiResponse>(response,HttpStatus.OK);
-		
-		  
-	  }
-	  
-	  @PutMapping("/{studentId}")  // End points
-	  public  ResponseEntity<StudentDto>   updateStudent( @RequestBody  StudentDto studentDto,@PathVariable("studentId") int studentId)
-	  {
-		         StudentDto updatedStudent = studentService.updateStudentById(studentDto,studentId);
-		         return new ResponseEntity<StudentDto>(updatedStudent,HttpStatus.OK);
-	  }
-	  
-	  @GetMapping("/email")
-	  public ResponseEntity<StudentDto>   getStudentByEmail(@RequestParam("msg") String msg)
-	  {
-		      StudentDto studentByEmail = studentService.findStudentByEmail(msg);
-		      return new ResponseEntity<StudentDto>(studentByEmail,HttpStatus.OK);
-		      
-	  }
-	  
 	
+	@Autowired
+    private StudentService studentService;
+
+ 
+    
+
+    
+    
+	@PostMapping("/") // End points
+	public ResponseEntity<StudentDto> saveStudent(@Valid @RequestBody StudentDto studentDto) {
+		StudentDto savedStudent = studentService.saveStudent(studentDto);
+		return new ResponseEntity<StudentDto>(savedStudent, HttpStatus.CREATED);
+	}
+	// ctrl+shift+T
+
+	@Operation(tags = "getStdentAPI",
+	  		  description = "get Student API demo",
+	  		  responses = {
+	  				     @io.swagger.v3.oas.annotations.responses.ApiResponse(
+	  				    		 
+	  				    		 responseCode = "200",
+	  				    		 description = "Success"
+	  				    		 ),
+	  				   @io.swagger.v3.oas.annotations.responses.ApiResponse(
+					    		 
+					    		 responseCode = "500",
+					    		 description = "Internal Error"
+					    		 )
+	  				   
+	  		              } 
+	              )
+	@GetMapping("/")
+	public ResponseEntity<List<StudentDto>> getAllStudentsRecords() {
+		List<StudentDto> allStudents = studentService.getAllStudents();
+		return new ResponseEntity<List<StudentDto>>(allStudents, HttpStatus.OK);
+	}
+
+	@GetMapping("/{studentId}")
+	public ResponseEntity<StudentDto> getStudentById(@PathVariable("studentId") int studentId) {
+
+		StudentDto studentById = studentService.getStudentById(studentId);
+		return new ResponseEntity<StudentDto>(studentById, HttpStatus.OK);
+
+	}
+
+	@DeleteMapping("/{studentId}")
+	public ResponseEntity<ApiResponse> deleteStudentById(@PathVariable("studentId") int studentId) {
+
+		studentService.deleteStudentById(studentId);
+		ApiResponse response = new ApiResponse();
+		response.setMessage("Student record is delete successfully with Id  :" + studentId);
+
+		return new ResponseEntity<ApiResponse>(response, HttpStatus.OK);
+
+	}
+
+	@PutMapping("/{studentId}") // End points
+	public ResponseEntity<StudentDto> updateStudent(@RequestBody StudentDto studentDto,
+			@PathVariable("studentId") int studentId) {
+		StudentDto updatedStudent = studentService.updateStudentById(studentDto, studentId);
+		return new ResponseEntity<StudentDto>(updatedStudent, HttpStatus.OK);
+	}
+
+//	@GetMapping("/email")
+//	public ResponseEntity<StudentDto> getStudentByEmail(@RequestParam("msg") String msg) {
+//		StudentDto studentByEmail = studentService.findStudentByEmail(msg);
+//		return new ResponseEntity<StudentDto>(studentByEmail, HttpStatus.OK);
+//
+//	}
+
 }
 // http://localhost:9091/student/
