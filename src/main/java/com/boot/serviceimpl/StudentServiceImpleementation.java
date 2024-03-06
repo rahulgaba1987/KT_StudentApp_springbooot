@@ -108,7 +108,8 @@ public class StudentServiceImpleementation  implements StudentService
 		Optional<StudentEntity> studentEntity= studentRepository.findById(studentId);
 	     if(studentEntity.isPresent())
 	     {
-	    	      StudentEntity studentDB = studentEntity.get();
+	    	      StudentEntity studentDB =   studentEntity.get();
+	    	      
 	    	      studentDB.setStudentId(student.getStudentId());
 	    	      studentDB.setStudentName(student.getStudentName());
 	    	      studentDB.setStudentAge(student.getStudentAge());
