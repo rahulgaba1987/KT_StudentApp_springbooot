@@ -22,11 +22,21 @@ public class StudentServiceImpleementation  implements StudentService
 	@Override
 	public StudentDto saveStudent(StudentDto student) 
 	{
-		StudentEntity studentEntity = studentDtoToStudentEntity(student);
+		Optional<StudentEntity> byStudentEmail = studentRepository.findByStudentEmail(student.getStudentEmail());
 		
-		StudentEntity savedObj = studentRepository.save(studentEntity);
+		if(byStudentEmail.isPresent())
+		{
+			throw new ResourceNotFoundException(student.getStudentId(),"Student ","Student is already exist");
+		}
+		else
+		{
+			StudentEntity studentEntity = studentDtoToStudentEntity(student);
+			
+			StudentEntity savedObj = studentRepository.save(studentEntity);
+			
+			return studentEntityToStudentDto(savedObj);
+		}
 		
-		return studentEntityToStudentDto(savedObj);
 	}
 	
 	
@@ -46,7 +56,7 @@ public class StudentServiceImpleementation  implements StudentService
 	{
 		StudentDto  studentDto = new StudentDto();
 		
-		 studentDto.setStudentId(entity.getStudentId());
+		  studentDto.setStudentId(entity.getStudentId());
 		  studentDto.setStudentName(entity.getStudentName());
 		  studentDto.setStudentEmail(entity.getStudentEmail());
 		  studentDto.setStudentAge(entity.getStudentAge());
@@ -132,11 +142,18 @@ public class StudentServiceImpleementation  implements StudentService
 
 
 	@Override
-	public StudentDto findStudentByEmail(String email) {
+	public StudentDto findByStudentEmail(String email) {
 		 
-		  List<StudentEntity> studentEmail = studentRepository.findByStudentEmail(email);
-		
-		   return studentEntityToStudentDto(studentEmail.get(0));
+		 Optional<StudentEntity> studentObj = studentRepository.findByStudentEmail(email);
+         if(studentObj.isPresent())
+         {
+        	 return studentEntityToStudentDto(studentObj.get());
+         }
+         else
+         {
+        	 throw new ResourceNotFoundException(1,"Student Email","Student Email id is not exist with Id  :  "+email);
+         }
+		   
 	}
 
 }

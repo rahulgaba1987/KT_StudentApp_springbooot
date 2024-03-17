@@ -1,5 +1,11 @@
 package com.boot.entity;
 
+import java.util.List;
+
+import com.boot.dto.CourseDto;
+import com.boot.dto.StudentDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,7 +15,17 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@Data
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name="course_tbl")
 public class CourseEntity
@@ -28,54 +44,4 @@ public class CourseEntity
 	@JoinColumn(name = "sid")
 	private StudentEntity  student;
 	
-	
-
-	public StudentEntity getStudent() {
-		return student;
-	}
-
-	public void setStudent(StudentEntity student) {
-		this.student = student;
-	}
-
-	public int getCourseId() {
-		return courseId;
-	}
-
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
-	}
-
-	public String getCourseName() {
-		return courseName;
-	}
-
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
-
-	public int getCourseFee() {
-		return courseFee;
-	}
-
-	public void setCourseFee(int courseFee) {
-		this.courseFee = courseFee;
-	}
-
-	
-	@Override
-	public String toString() {
-		return "CourseEntity [courseId=" + courseId + ", courseName=" + courseName + ", courseFee=" + courseFee
-				+ ", student=" + student + "]";
-	}
-
-	public CourseEntity() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
-	
-	
-
 }

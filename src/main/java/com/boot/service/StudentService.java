@@ -1,5 +1,8 @@
 package com.boot.service;
 import java.util.*;
+
+import org.springframework.stereotype.Component;
+
 import com.boot.dto.StudentDto;
 
 public interface StudentService 
@@ -20,7 +23,7 @@ public interface StudentService
      //Update StudentID
      public StudentDto  updateStudentById(StudentDto student,int studentId);
      
-     public StudentDto   findStudentByEmail(String email);
+     public StudentDto   findByStudentEmail(String email);
      
      
 

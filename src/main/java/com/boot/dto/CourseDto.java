@@ -1,5 +1,18 @@
 package com.boot.dto;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@Data
+@ToString
+@NoArgsConstructor
 
 
 public class CourseDto 
@@ -12,48 +25,6 @@ public class CourseDto
 	
 	private StudentDto  student;
 
-	public int getCourseId() {
-		return courseId;
-	}
-
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
-	}
-
-	public String getCourseName() {
-		return courseName;
-	}
-
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
-
-	public int getCourseFee() {
-		return courseFee;
-	}
-
-	public void setCourseFee(int courseFee) {
-		this.courseFee = courseFee;
-	}
-
-	public StudentDto getStudent() {
-		return student;
-	}
-
-	public void setStudent(StudentDto student) {
-		this.student = student;
-	}
-
-	@Override
-	public String toString() {
-		return "CourseDto [courseId=" + courseId + ", courseName=" + courseName + ", courseFee=" + courseFee
-				+ ", student=" + student + "]";
-	}
-
-	public CourseDto() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 	
 	
 

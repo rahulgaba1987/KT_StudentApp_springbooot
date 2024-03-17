@@ -5,21 +5,38 @@ import java.util.List;
 
 import org.hibernate.annotations.GeneratorType;
 
+import com.boot.dto.CourseDto;
+import com.boot.dto.StudentDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /*
  *    student (studentId, studentName, email, studentAge, address)
 
          courses (courseId, courseName, courseFee, duration)
  */
+@Data
+
+@NoArgsConstructor
+@AllArgsConstructor
+
 @Entity
 @Table(name = "student_tbl")
+
 public class StudentEntity 
 {
 	@Id
@@ -38,71 +55,8 @@ public class StudentEntity
 	@Column(name = "student_password",nullable = false)	
 	private String password;
 	
-	@OneToMany(mappedBy = "student")
+	@OneToMany(mappedBy = "student",fetch =FetchType.EAGER )
 	List<CourseEntity> courseList = new ArrayList<>();
 
-	public int getStudentId() {
-		return studentId;
-	}
-
-	public void setStudentId(int studentId) {
-		this.studentId = studentId;
-	}
-
-	public String getStudentName() {
-		return studentName;
-	}
-
-	public List<CourseEntity> getCourseList() {
-		return courseList;
-	}
-
-	public void setCourseList(List<CourseEntity> courseList) {
-		this.courseList = courseList;
-	}
-
-	public void setStudentName(String studentName) {
-		this.studentName = studentName;
-	}
-
-	public String getStudentEmail() {
-		return studentEmail;
-	}
-
-	public void setStudentEmail(String studentEmail) {
-		this.studentEmail = studentEmail;
-	}
-
-	public int getStudentAge() {
-		return studentAge;
-	}
-
-	public void setStudentAge(int studentAge) {
-		this.studentAge = studentAge;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	
-	@Override
-	public String toString() {
-		return "StudentEntity [studentId=" + studentId + ", studentName=" + studentName + ", studentEmail="
-				+ studentEmail + ", studentAge=" + studentAge + ", password=" + password + ", courseList=" + courseList
-				+ "]";
-	}
-
-	public StudentEntity() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
-	
 	
 }
