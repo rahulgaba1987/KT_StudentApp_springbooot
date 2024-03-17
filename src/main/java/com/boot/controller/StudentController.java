@@ -33,10 +33,6 @@ public class StudentController {
 	@Autowired
     private StudentService studentService;
 
- 
-    
-
-    
     
 	@PostMapping("/") // End points
 	public ResponseEntity<StudentDto> saveStudent(@Valid @RequestBody StudentDto studentDto) {
@@ -93,12 +89,12 @@ public class StudentController {
 		return new ResponseEntity<StudentDto>(updatedStudent, HttpStatus.OK);
 	}
 
-//	@GetMapping("/email")
-//	public ResponseEntity<StudentDto> getStudentByEmail(@RequestParam("msg") String msg) {
-//		StudentDto studentByEmail = studentService.findStudentByEmail(msg);
-//		return new ResponseEntity<StudentDto>(studentByEmail, HttpStatus.OK);
-//
-//	}
+	@GetMapping("/email")
+	public ResponseEntity<StudentDto> getStudentByEmail(@RequestParam("msg") String msg) {
+		StudentDto studentByEmail = studentService.findByStudentEmail(msg);
+		return new ResponseEntity<StudentDto>(studentByEmail, HttpStatus.OK);
+
+	}
 
 }
 // http://localhost:9091/student/
