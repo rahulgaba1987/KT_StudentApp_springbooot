@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -137,11 +138,13 @@ public class StudentServiceTests {
 	@Order(5)
 	public void deleteStudentById() {
 		int studentId = 1;
-		
-		//doNothing().when(repository).deleteById(Mockito.anyInt());
+		when(repository.findById(studentId)).thenReturn(Optional.of(studentEntity));
+		doNothing().when(repository).deleteById(Mockito.anyInt());
+
+		studentService.deleteStudentById(studentId);
+		verify(repository,times(1)).deleteById(Mockito.anyInt());
 
 		when(repository.findById(studentId)).thenReturn(Optional.empty());
-
 		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
 			studentService.deleteStudentById(studentId);
 		});
